@@ -7,19 +7,23 @@ export const FormContainer = styled(MuiCard)(({ theme }) => ({
   flexDirection: "column",
   alignSelf: "center",
   width: "100%",
-  padding: theme.spacing(3),
+  maxWidth: "500px",
+  padding: theme.spacing(4),
   gap: theme.spacing(2),
   margin: "auto",
+  borderRadius: theme.shape.borderRadius * 2,
+  boxShadow: theme.shadows[3],
+  backgroundColor: theme.palette.background.paper,
 }));
 
 export const PageContainer = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(2),
-  [theme.breakpoints.up("sm")]: {
-    padding: theme.spacing(4),
-  },
-  height: "100%",
+  width: "100vw",
+  maxWidth: "100%",
+  height: "100vh",
+  padding: theme.spacing(3),
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  backgroundColor: theme.palette.background.default,
 }));

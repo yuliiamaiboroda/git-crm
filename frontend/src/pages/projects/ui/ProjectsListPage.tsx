@@ -1,11 +1,16 @@
-import { Paper, Button, Box, Typography } from "@mui/material";
+import { useState } from "react";
+import { Paper } from "@mui/material";
 import { DataGrid, GridPaginationModel } from "@mui/x-data-grid";
 import { columns } from "../data/constants";
-import { useGetProjects } from "@/shared";
-import { useState } from "react";
+
 import { PageContainer } from "@/shared/ui/layouts/login/Containers";
-import { CreateProjectDialog } from "../components/CreateProjectDialog/ui/CreateProjectDialog";
-import { DeleteProjectDialog } from "../components/DeleteProjectDialog/ui/DeleteProjectDialog";
+import { Project, useGetProjects } from "@/shared";
+import {
+  CreateProjectDialog,
+  DeleteProjectDialog,
+  UpdateProjectDialog,
+  Toolbar,
+} from "../components";
 
 export function ProjectsListPage() {
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
@@ -14,47 +19,42 @@ export function ProjectsListPage() {
   });
   const [createProjectDialogOpen, setCreateProjectDialogOpen] = useState(false);
   const [deleteProjectDialogOpen, setDeleteProjectDialogOpen] = useState(false);
-  const [deleteProjectDialogProjectId, setDeleteProjectDialogProjectId] =
-    useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [updateProjectDialogOpen, setUpdateProjectDialogOpen] = useState(false);
+
+  const handleOpenCreateProjectDialog = () => {
+    setCreateProjectDialogOpen(true);
+  };
+  const handleCloseCreateProjectDialog = () => {
+    setCreateProjectDialogOpen(false);
+  };
+  const handleOpenUpdateProjectDialog = () => {
+    setUpdateProjectDialogOpen(true);
+  };
+  const handleCloseUpdateProjectDialog = () => {
+    setUpdateProjectDialogOpen(false);
+    setSelectedProject(null);
+  };
+  const handleOpenDeleteProjectDialog = () => {
+    setDeleteProjectDialogOpen(true);
+  };
+  const handleCloseDeleteProjectDialog = () => {
+    setDeleteProjectDialogOpen(false);
+    setSelectedProject(null);
+  };
 
   const { data: projects, isLoading } = useGetProjects(
     paginationModel.page + 1
   );
 
-  const CustomToolbar = () => {
-    return (
-      <Box display="flex" justifyContent="space-between" p={2}>
-        <Typography variant="h5" fontWeight="bold" color="primary">
-          Project Management
-        </Typography>
-        <Box>
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => setCreateProjectDialogOpen(true)}
-            sx={{ mx: 1 }}
-          >
-            Create Project
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => setDeleteProjectDialogOpen(true)}
-          >
-            Delete Project
-          </Button>
-        </Box>
-      </Box>
-    );
-  };
-
   return (
     <PageContainer>
-      <Paper
-        elevation={4}
-        sx={{ p: 3, borderRadius: 3, maxWidth: "90vw", margin: "auto" }}
-      >
-        <CustomToolbar />
+      <Paper elevation={4}>
+        <Toolbar
+          handleOpenCreateProjectDialog={handleOpenCreateProjectDialog}
+          handleOpenDeleteProjectDialog={handleOpenDeleteProjectDialog}
+          handleOpenUpdateProjectDialog={handleOpenUpdateProjectDialog}
+        />
         <DataGrid
           rows={projects?.data || []}
           columns={columns}
@@ -66,29 +66,27 @@ export function ProjectsListPage() {
           disableColumnSelector
           disableMultipleRowSelection
           onRowClick={(params) => {
-            setDeleteProjectDialogProjectId(params.row.id);
+            setSelectedProject(params.row);
           }}
           loading={isLoading}
-          sx={{
-            "& .MuiDataGrid-root": {
-              borderRadius: 3,
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#f5f5f5",
-              fontWeight: "bold",
-            },
-          }}
         />
       </Paper>
       <CreateProjectDialog
         open={createProjectDialogOpen}
-        onClose={() => setCreateProjectDialogOpen(false)}
+        onClose={handleCloseCreateProjectDialog}
       />
       <DeleteProjectDialog
         open={deleteProjectDialogOpen}
-        onClose={() => setDeleteProjectDialogOpen(false)}
-        projectId={deleteProjectDialogProjectId}
+        onClose={handleCloseDeleteProjectDialog}
+        projectId={selectedProject?.id || null}
       />
+      {selectedProject && (
+        <UpdateProjectDialog
+          open={updateProjectDialogOpen}
+          onClose={handleCloseUpdateProjectDialog}
+          project={selectedProject}
+        />
+      )}
     </PageContainer>
   );
 }

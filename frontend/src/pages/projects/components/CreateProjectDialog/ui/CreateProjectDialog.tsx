@@ -35,6 +35,7 @@ export function CreateProjectDialog({ open, onClose }: Props) {
   const handleSubmit = async (values: ValidationSchemaType) => {
     try {
       await createProjectAsync(values);
+      formik.resetForm();
       onClose();
     } catch {
       errorSnackbarRef.current?.showError();
