@@ -46,6 +46,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=gitcrm
       - MONGODB_URI=mongodb://user:password@mongodb:27017/gitcrm?authSource=admin
+      - SWAGGER_USERNAME=admin
+      - SWAGGER_PASSWORD=p@ssw0rd123
     ports:
       - "3000:3000"
     depends_on:
