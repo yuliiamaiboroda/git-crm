@@ -8,32 +8,41 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from './user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Project {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
   @Column({ name: 'owner_id', nullable: false })
   ownerId: number;
 
+  @ApiProperty()
   @ManyToOne(() => User)
   @JoinColumn({ name: 'owner_id' })
   owner: User;
 
+  @ApiProperty()
   @Column({ name: 'name', nullable: false })
   name: string;
 
-  @Column({ name: 'url', nullable: false })
+  @ApiProperty()
+  @Column({ name: 'url', nullable: false, default: '' })
   url: string;
 
-  @Column({ name: 'stars', nullable: false })
+  @ApiProperty()
+  @Column({ name: 'stars', nullable: false, default: 0 })
   stars: number;
 
-  @Column({ name: 'forks', nullable: false })
+  @ApiProperty()
+  @Column({ name: 'forks', nullable: false, default: 0 })
   forks: number;
 
-  @Column({ name: 'issues', nullable: false })
+  @ApiProperty()
+  @Column({ name: 'issues', nullable: false, default: 0 })
   issues: number;
 
   @CreateDateColumn({
