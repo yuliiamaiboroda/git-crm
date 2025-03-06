@@ -27,9 +27,10 @@ export class GithubService {
     if (!user) throw new NotFoundException('User not found');
 
     const project = await this.projectService.findProjectById(projectId);
-    const username = project.name.split('/')[0];
-    const projectName = project.name.split('/')[1];
-    const repo = await this.getGithubRepoByOwnerAndName(username, projectName);
+    const repo = await this.getGithubRepoByOwnerAndName(
+      project.ownerName,
+      project.name,
+    );
 
     if (repo.status !== 200)
       throw new NotFoundException('Repository not found');

@@ -4,3 +4,4 @@ export { default as useCreateProject } from "./useCreateProject";
 export { default as useUpdateProject } from "./useUpdateProject";
 export { default as useDeleteProject } from "./useDeleteProject";
 export { default as useGetProjects } from "./useGetProjects";
+export { default as useGetProjectById } from "./useGetProjectById";

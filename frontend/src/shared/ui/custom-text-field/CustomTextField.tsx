@@ -1,20 +1,20 @@
-import { Box, FormControl, FormLabel } from '@mui/material'
-import TextField from '@mui/material/TextField'
-import { ChangeEventHandler, FC } from 'react'
+import { Box, FormControl, FormLabel } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { ChangeEventHandler, FC } from "react";
 
 type Props = {
-  id: string
-  label: string
-  value: string | number
-  touched?: boolean
-  error?: string
-  placeholder?: string
-  autoComplete?: string | undefined
-  type: React.HTMLInputTypeAttribute
-  multiline?: boolean
-  onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-  onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>
-}
+  id: string;
+  label: string;
+  value: string | number;
+  touched?: boolean;
+  error?: string;
+  placeholder?: string;
+  autoComplete?: string | undefined;
+  type: React.HTMLInputTypeAttribute;
+  multiline?: boolean;
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+};
 
 export const CustomTextField: FC<Props> = ({
   id,
@@ -30,7 +30,7 @@ export const CustomTextField: FC<Props> = ({
   onBlur,
 }) => (
   <FormControl>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <FormLabel htmlFor="password">{label}</FormLabel>
     </Box>
     <TextField
@@ -45,7 +45,7 @@ export const CustomTextField: FC<Props> = ({
       required
       fullWidth
       variant="outlined"
-      color={error ? 'error' : 'primary'}
+      color={error ? "error" : "primary"}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
@@ -53,4 +53,4 @@ export const CustomTextField: FC<Props> = ({
       helperText={touched && error}
     />
   </FormControl>
-)
+);

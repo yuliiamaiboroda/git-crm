@@ -60,7 +60,7 @@ export function ProjectsListPage() {
           columns={columns}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          pageSizeOptions={[10]}
+          paginationMode="server"
           pagination
           rowCount={projects?.total || 0}
           disableColumnSelector

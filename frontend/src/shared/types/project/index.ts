@@ -1,14 +1,14 @@
 export interface Project {
   id: number;
-  ownerId: number;
-  owner: {
-    email: string;
-  };
+  userId: number;
+  ownerName: string;
   name: string;
   url: string;
   stars: number;
   forks: number;
   issues: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface PaginatedList<T> {

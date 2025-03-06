@@ -17,13 +17,17 @@ export class Project {
   id: number;
 
   @ApiProperty()
-  @Column({ name: 'owner_id', nullable: false })
-  ownerId: number;
+  @Column({ name: 'user_id', nullable: false })
+  userId: number;
 
   @ApiProperty()
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'owner_id' })
-  owner: User;
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @ApiProperty()
+  @Column({ name: 'owner_name', nullable: false })
+  ownerName: string;
 
   @ApiProperty()
   @Column({ name: 'name', nullable: false })

@@ -97,7 +97,7 @@ export class ProjectController {
   ): Promise<Project> {
     const project = await this.projectService.findProjectById(id);
 
-    if (!project || project?.ownerId !== user.id) {
+    if (!project || project?.userId !== user.id) {
       throw new NotFoundException('Project not found');
     }
 
@@ -141,7 +141,7 @@ export class ProjectController {
   ): Promise<Project> {
     const project = await this.projectService.findProjectById(id);
 
-    if (!project || project?.ownerId !== user.id) {
+    if (!project || project?.userId !== user.id) {
       throw new NotFoundException('Project not found');
     }
 
@@ -164,7 +164,7 @@ export class ProjectController {
   ): Promise<void> {
     const project = await this.projectService.findProjectById(id);
 
-    if (!project || project?.ownerId !== user.id) {
+    if (!project || project?.userId !== user.id) {
       throw new NotFoundException('Project not found');
     }
 

@@ -65,8 +65,9 @@ services:
       - RABBITMQ_URL=amqp://user:password@rabbitmq:5672
       - SWAGGER_USERNAME=admin
       - SWAGGER_PASSWORD=p@ssw0rd123
+      - FRONTEND_HOST=http://localhost
     ports:
-      - "3000:3000"
+      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -74,6 +75,17 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    environment:
+      - VITE_API_URL=http://localhost/api/v1
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:

@@ -29,6 +29,7 @@ export function Toolbar({
           variant="contained"
           color="error"
           onClick={handleOpenDeleteProjectDialog}
+          sx={{ mx: 1 }}
         >
           Delete Project
         </Button>
@@ -36,6 +37,7 @@ export function Toolbar({
           variant="contained"
           color="warning"
           onClick={handleOpenUpdateProjectDialog}
+          sx={{ mx: 1 }}
         >
           Update Project
         </Button>

@@ -25,9 +25,13 @@ export class ProjectService {
     userId: number,
     data: CreateProjectDto,
   ): Promise<Project> {
+    const { ownerName, projectName } = this.transformProjectPath(data.name);
+
     const project = this.projectRepository.create({
       ...data,
-      ownerId: userId,
+      ownerName,
+      name: projectName,
+      userId,
     });
 
     const savedProject = await this.projectRepository.save(project);
@@ -74,7 +78,7 @@ export class ProjectService {
     take?: number,
   ): Promise<Project[]> {
     return this.projectRepository.find({
-      where: { ownerId: userId },
+      where: { userId },
       skip: skip && skip,
       take: take && take,
       order: { id: 'ASC' },
@@ -82,6 +86,19 @@ export class ProjectService {
   }
 
   async countAllProjectsByUserId(userId: number): Promise<number> {
-    return this.projectRepository.count({ where: { ownerId: userId } });
+    return this.projectRepository.count({ where: { userId } });
+  }
+
+  private transformProjectPath(projectPath: string): {
+    ownerName: string;
+    projectName: string;
+  } {
+    console.log(projectPath);
+    const [ownerName, projectName] = projectPath.split('/');
+
+    return {
+      ownerName,
+      projectName,
+    };
   }
 }
