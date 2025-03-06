@@ -93,7 +93,6 @@ export class ProjectService {
     ownerName: string;
     projectName: string;
   } {
-    console.log(projectPath);
     const [ownerName, projectName] = projectPath.split('/');
 
     return {

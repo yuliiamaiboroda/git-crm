@@ -3,7 +3,7 @@ import { routes } from "../routes";
 import { LOCAL_STORAGE_KEYS } from "../types";
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL + "/api/v1",
 });
 
 axiosInstance.interceptors.request.use((config) => {
