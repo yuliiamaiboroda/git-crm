@@ -7,7 +7,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Request } from 'express';
-import * as argon2 from 'argon2';
 import { Model } from 'mongoose';
 
 import { UserService } from 'src/modules/user/user.service';
@@ -39,7 +38,8 @@ export class AuthGuard implements CanActivate {
       await this.validateUserSession(payload);
 
       request['user'] = user;
-    } catch {
+    } catch (error) {
+      console.log(error);
       throw new UnauthorizedException();
     }
     return true;
@@ -54,10 +54,7 @@ export class AuthGuard implements CanActivate {
     const user: User = await this.userService.findById(payload.id);
     if (!user) throw new UnauthorizedException();
 
-    const isPasswordValid = await argon2.verify(
-      user.password,
-      payload.password,
-    );
+    const isPasswordValid = user.password === payload.password;
     if (!isPasswordValid) throw new UnauthorizedException();
 
     return user;

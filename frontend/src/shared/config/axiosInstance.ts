@@ -7,7 +7,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const accessToken = sessionStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+  const accessToken = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     if (error.response?.status === 401 && error.config?.url !== "/login") {
-      sessionStorage.clear();
+      localStorage.clear();
 
       window.location.href = routes.LOGIN;
     }
