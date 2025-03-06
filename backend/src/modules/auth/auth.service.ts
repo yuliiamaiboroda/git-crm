@@ -34,7 +34,8 @@ export class AuthService {
   ) {}
 
   async login(authDto: AuthDto): Promise<AuthResponse> {
-    const { email, password } = authDto;
+    const { email: emailFromDto, password } = authDto;
+    const email = emailFromDto.toLowerCase();
 
     const user = await this.userService.findByEmail(email);
     if (!user) throw new UnauthorizedException();
@@ -61,7 +62,8 @@ export class AuthService {
   }
 
   async register(authDto: AuthDto): Promise<AuthResponse> {
-    const { email, password } = authDto;
+    const { email: emailFromDto, password } = authDto;
+    const email = emailFromDto.toLowerCase();
 
     const userInstance = await this.userService.findByEmail(email);
     if (userInstance) throw new ConflictException('User already exists');

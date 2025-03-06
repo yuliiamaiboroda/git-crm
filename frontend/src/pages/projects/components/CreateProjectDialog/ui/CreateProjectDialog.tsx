@@ -24,11 +24,8 @@ interface Props {
 }
 
 export function CreateProjectDialog({ open, onClose }: Props) {
-  const {
-    mutateAsync: createProjectAsync,
-    isPending: isCreateProjectPending,
-    isSuccess: isCreateProjectSuccess,
-  } = useCreateProject();
+  const { mutateAsync: createProjectAsync, isPending: isCreateProjectPending } =
+    useCreateProject();
 
   const errorSnackbarRef = useRef<ErrorSnackbarRef>(null);
 
@@ -48,10 +45,12 @@ export function CreateProjectDialog({ open, onClose }: Props) {
     },
     validationSchema,
     onSubmit: handleSubmit,
+    enableReinitialize: true,
   });
 
   return (
     <Dialog
+      key={open ? "open" : "closed"}
       open={open}
       onClose={onClose}
       sx={{ "& .MuiDialog-paper": { borderRadius: 3, padding: 2 } }}
@@ -80,7 +79,6 @@ export function CreateProjectDialog({ open, onClose }: Props) {
             <CustomButton
               type="submit"
               loading={isCreateProjectPending}
-              done={isCreateProjectSuccess}
               variant="contained"
               color="success"
             >

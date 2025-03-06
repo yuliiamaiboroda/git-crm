@@ -30,16 +30,18 @@ export class ProjectService {
       ownerId: userId,
     });
 
+    const savedProject = await this.projectRepository.save(project);
+
     await lastValueFrom(
       this.gitCrmService.emit(USER_CREATED_PROJECT, {
         payload: {
           userId,
-          projectId: project.id,
+          projectId: savedProject.id,
         },
       } as userCreatedProjectData),
     );
 
-    return this.projectRepository.save(project);
+    return savedProject;
   }
 
   async updateProjectById(
@@ -75,9 +77,7 @@ export class ProjectService {
       where: { ownerId: userId },
       skip: skip && skip,
       take: take && take,
-      order: {
-        updatedDate: 'DESC',
-      },
+      order: { id: 'ASC' },
     });
   }
 
