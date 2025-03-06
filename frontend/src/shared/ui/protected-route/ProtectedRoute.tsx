@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const ProtectedRoute: FC<Props> = ({ element }) => {
-  const isLoggedIn = sessionStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+  const isLoggedIn = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
 
   return isLoggedIn ? element : <Navigate to={routes.LOGIN} replace />;
 };

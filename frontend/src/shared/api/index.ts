@@ -1,2 +1,2 @@
-export * from "./useRegister";
-export * from "./useLogin";
+export { default as useRegister } from "./useRegister";
+export { default as useLogin } from "./useLogin";

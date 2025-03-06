@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   ValidationSchemaType,
   validationSchema,
-} from "../../login/lib/validationSchema";
+} from "../lib/validationSchema";
 import { ErrorSnackbarRef, LOCAL_STORAGE_KEYS } from "@/shared/types";
 import {
   CustomButton,
@@ -12,15 +12,15 @@ import {
   CustomTextField,
   ErrorSnackbar,
   routes,
-  useRegister,
+  useLogin,
 } from "@/shared";
 
-export function RegisterPage() {
+export function LoginPage() {
   const {
-    mutateAsync: registerAsync,
-    isPending: isRegisterPending,
-    isSuccess: isRegisterSuccess,
-  } = useRegister();
+    mutateAsync: loginAsync,
+    isPending: isLoginPending,
+    isSuccess: isLoginSuccess,
+  } = useLogin();
 
   const navigate = useNavigate();
   const errorSnackbarRef = useRef<ErrorSnackbarRef>(null);
@@ -31,7 +31,7 @@ export function RegisterPage() {
 
   const handleSubmit = async ({ email, password }: ValidationSchemaType) => {
     try {
-      const res = await registerAsync({ email, password });
+      const res = await loginAsync({ email, password });
       localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, res.token);
 
       navigate(routes.MAIN);
@@ -51,7 +51,7 @@ export function RegisterPage() {
   });
 
   return (
-    <CustomLayouts.Login heading="Register" onSubmit={formik.handleSubmit}>
+    <CustomLayouts.Login heading="Login" onSubmit={formik.handleSubmit}>
       <CustomTextField
         label="Email"
         id="email"
@@ -78,13 +78,13 @@ export function RegisterPage() {
       />
       <CustomButton
         type="submit"
-        loading={isRegisterPending}
-        done={isRegisterSuccess}
+        loading={isLoginPending}
+        done={isLoginSuccess}
       >
-        Register
+        Login
       </CustomButton>
-      <CustomButton onClick={() => navigate(routes.LOGIN)}>
-        Already have an account?
+      <CustomButton onClick={() => navigate(routes.REGISTER)}>
+        Register
       </CustomButton>
       <ErrorSnackbar
         ref={errorSnackbarRef}
