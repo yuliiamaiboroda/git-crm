@@ -5,6 +5,7 @@ import mongoDBConfig from '../config/mongoDB.config';
 import authConfig from '../config/auth.config';
 import rabbitMQConfig from '../config/rabbitMQ.config';
 import githubConfig from '../config/github.config';
+import corsConfig from '../config/cors.config';
 
 export const ConfigProvider = ConfigModule.forRoot({
   isGlobal: true,
@@ -14,5 +15,6 @@ export const ConfigProvider = ConfigModule.forRoot({
     authConfig,
     rabbitMQConfig,
     githubConfig,
+    corsConfig,
   ],
 });

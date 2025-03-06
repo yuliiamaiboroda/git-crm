@@ -47,18 +47,20 @@ export class Project {
 
   @CreateDateColumn({
     name: 'created_date',
+    type: 'timestamp',
     transformer: {
-      to: (value: Date) => Math.floor(value.getTime() / 1000),
-      from: (value: number) => new Date(value * 1000),
+      to: (value: Date | undefined) => value || new Date(),
+      from: (value: Date) => Math.floor(value.getTime() / 1000),
     },
   })
   createdDate: number;
 
   @UpdateDateColumn({
     name: 'updated_date',
+    type: 'timestamp',
     transformer: {
-      to: (value: Date) => Math.floor(value.getTime() / 1000),
-      from: (value: number) => new Date(value * 1000),
+      to: (value: Date | undefined) => value || new Date(),
+      from: (value: Date) => Math.floor(value.getTime() / 1000),
     },
   })
   updatedDate: number;
