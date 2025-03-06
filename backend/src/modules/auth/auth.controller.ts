@@ -15,7 +15,7 @@ import { User } from 'src/entities/postgres/user.entity';
 import { CurrentUser } from 'src/decorators/user.decorator';
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller('')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

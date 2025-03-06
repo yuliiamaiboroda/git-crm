@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { forwardRef, Global, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserModule } from '../user/user.module';
@@ -8,6 +8,7 @@ import {
   UserSessionSchema,
 } from 'src/entities/mongoDB/user-session.entity';
 
+@Global()
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -17,6 +18,11 @@ import {
   ],
   controllers: [AuthController],
   providers: [AuthService],
-  exports: [AuthService],
+  exports: [
+    AuthService,
+    MongooseModule.forFeature([
+      { name: UserSession.name, schema: UserSessionSchema },
+    ]),
+  ],
 })
 export class AuthModule {}

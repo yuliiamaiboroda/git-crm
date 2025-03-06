@@ -1,7 +1,6 @@
 import {
   CanActivate,
   ExecutionContext,
-  Global,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -19,7 +18,6 @@ import { UserSession } from 'src/entities/mongoDB/user-session.entity';
 
 import { UserTokenData } from 'src/types/auth.types';
 
-@Global()
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
