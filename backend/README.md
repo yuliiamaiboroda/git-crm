@@ -1,73 +1,146 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Backend Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+NestJS-based backend service for Git CRM system.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- NestJS v11
+- TypeScript
+- PostgreSQL (via TypeORM)
+- MongoDB (via Mongoose)
+- RabbitMQ (for message queue)
+- Swagger (for API documentation)
+- GitHub API integration
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
+
+- Node.js v22.14.0 or higher
+- npm
+- PostgreSQL
+- MongoDB
+- RabbitMQ
+
+## Environment Variables
+
+Copy the sample environment file:
+
+```bash
+cp .env.sample .env
+```
+
+Required environment variables:
+
+```env
+# Database Configuration
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=gitcrm
+
+# MongoDB Configuration
+MONGODB_URI=mongodb://user:password@mongodb:27017/gitcrm?authSource=admin
+
+# RabbitMQ Configuration
+RABBITMQ_URL=amqp://user:password@rabbitmq:5672
+
+# Authentication
+AUTH_SECRET=secret
+
+# GitHub Integration
+GITHUB_ACCESS_TOKEN=github_access_token
+
+# API Documentation
+SWAGGER_USERNAME=admin
+SWAGGER_PASSWORD=p@ssw0rd123
+
+# CORS Configuration
+FRONTEND_HOST=http://localhost
+```
 
 ## Installation
 
 ```bash
-$ npm install
+# Install dependencies
+npm ci
 ```
 
-## Running the app
+## Database Migrations
 
 ```bash
-# development
-$ npm run start
+# Run migrations
+npm run migration:run
 
-# watch mode
-$ npm run start:dev
+# Create a new migration
+npm run migration:create name-of-migration
 
-# production mode
-$ npm run start:prod
+# Generate a migration from entity changes
+npm run migration:generate src/migrations/name-of-migration
+
+# Revert last migration
+npm run migration:revert
 ```
 
-## Test
+## Running the Application
 
 ```bash
-# unit tests
-$ npm run test
+# Development mode
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
+# Debug mode
+npm run start:debug
 
-# test coverage
-$ npm run test:cov
+# Production mode
+npm run build
+npm run start:prod
 ```
 
-## Support
+## Development
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# Format code
+npm run format
 
-## Stay in touch
+# Lint code
+npm run lint
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## API Documentation
 
-## License
+Once the application is running, you can access the Swagger documentation at:
 
-Nest is [MIT licensed](LICENSE).
+```
+http://localhost:8080/api/docs
+```
+
+Use the following credentials:
+
+- Username: admin
+- Password: p@ssw0rd123
+
+## Docker
+
+Build the image:
+
+```bash
+docker build -t git-crm-backend .
+```
+
+Run the container:
+
+```bash
+docker run -p 8080:8080 \
+  -e POSTGRES_HOST=postgres \
+  -e POSTGRES_PORT=5432 \
+  -e POSTGRES_USER=user \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_DB=gitcrm \
+  -e MONGODB_URI=mongodb://user:password@mongodb:27017/gitcrm?authSource=admin \
+  -e RABBITMQ_URL=amqp://user:password@rabbitmq:5672 \
+  -e AUTH_SECRET=secret \
+  -e GITHUB_ACCESS_TOKEN=your_github_token \
+  -e SWAGGER_USERNAME=admin \
+  -e SWAGGER_PASSWORD=p@ssw0rd123 \
+  -e FRONTEND_HOST=frontend_host \
+  git-crm-backend
+```
