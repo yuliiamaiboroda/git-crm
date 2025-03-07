@@ -1,13 +1,18 @@
 import { InferType } from "yup";
 import { object, string, number } from "yup";
-import { GITHUB_URL_REGEX, PROJECT_NAME_REGEX } from "@/shared/lib";
+import {
+  GITHUB_URL_REGEX,
+  GITHUB_USERNAME_REGEX,
+  MAX_USERNAME_LENGTH,
+} from "@/shared/lib";
 
 export type ValidationSchemaType = InferType<typeof validationSchema>;
 
 export const validationSchema = object().shape({
   name: string()
-    .matches(PROJECT_NAME_REGEX, "Invalid project name format")
+    .matches(GITHUB_USERNAME_REGEX, "Invalid project name format")
     .optional(),
+  ownerName: string().max(MAX_USERNAME_LENGTH).optional(),
   url: string()
     .matches(GITHUB_URL_REGEX, "Invalid GitHub URL format")
     .url("Invalid URL format")

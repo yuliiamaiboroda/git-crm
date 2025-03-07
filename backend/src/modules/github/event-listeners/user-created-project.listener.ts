@@ -1,6 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
+
 import { GithubService } from '../github.service';
+
 import {
   USER_CREATED_PROJECT,
   userCreatedProjectData,

@@ -56,6 +56,7 @@ export function UpdateProjectDialog({ open, onClose, project }: Props) {
       stars: project.stars,
       forks: project.forks,
       issues: project.issues,
+      ownerName: project.ownerName,
     },
     validationSchema,
     onSubmit: handleSubmit,
@@ -87,6 +88,18 @@ export function UpdateProjectDialog({ open, onClose, project }: Props) {
                 onBlur={formik.handleBlur}
                 error={formik.errors.name}
                 touched={formik.touched.name}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <CustomTextField
+                type="text"
+                id="ownerName"
+                label="Project Owner"
+                value={formik.values.ownerName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.errors.ownerName}
+                touched={formik.touched.ownerName}
               />
             </Grid>
             <Grid item xs={12}>

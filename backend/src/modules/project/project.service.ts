@@ -1,11 +1,15 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Project } from 'src/entities/postgres/project.entity';
-import { Repository } from 'typeorm';
-import { CreateProjectDto } from './dto/create-project.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClientProxy } from '@nestjs/microservices';
-import { GIT_CRM_SERVICE } from 'src/providers/RabbitMQ.provider';
 import { lastValueFrom } from 'rxjs';
+
+import { Repository } from 'typeorm';
+
+import { GIT_CRM_SERVICE } from 'src/providers/RabbitMQ.provider';
+
+import { Project } from 'src/entities/postgres/project.entity';
+
+import { CreateProjectDto } from './dto/create-project.dto';
 import {
   USER_CREATED_PROJECT,
   userCreatedProjectData,

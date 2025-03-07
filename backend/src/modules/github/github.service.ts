@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Octokit } from '@octokit/rest';
-import { RestEndpointMethodTypes } from '@octokit/rest';
+
+import { Octokit, RestEndpointMethodTypes } from '@octokit/rest';
+
 import { UserService } from '../user/user.service';
 import { ProjectService } from '../project/project.service';
 

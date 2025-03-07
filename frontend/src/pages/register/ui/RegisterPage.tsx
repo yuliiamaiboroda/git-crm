@@ -86,10 +86,7 @@ export function RegisterPage() {
       <CustomButton onClick={() => navigate(routes.LOGIN)}>
         Already have an account?
       </CustomButton>
-      <ErrorSnackbar
-        ref={errorSnackbarRef}
-        message="Invalid email or password"
-      />
+      <ErrorSnackbar ref={errorSnackbarRef} />
     </CustomLayouts.Login>
   );
 }

@@ -10,8 +10,6 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ProjectService } from './project.service';
-import { AuthGuard } from 'src/guards/auth.guard';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -22,16 +20,23 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { ProjectListResponse } from './responses/project-list.response';
-import { CurrentUser } from 'src/decorators/user.decorator';
+
+import { ProjectService } from './project.service';
+
 import { User } from 'src/entities/postgres/user.entity';
+import { Project } from 'src/entities/postgres/project.entity';
+
+import { AuthGuard } from 'src/guards/auth.guard';
+import { CurrentUser } from 'src/decorators/user.decorator';
+
+import { ProjectListResponse } from './responses/project-list.response';
+import { CreateProjectDto } from './dto/create-project.dto';
+
 import {
   getTotalPages,
   normalizePaginationForDB,
   validatePaginationInQuery,
 } from 'src/utils';
-import { Project } from 'src/entities/postgres/project.entity';
-import { CreateProjectDto } from './dto/create-project.dto';
 
 @ApiTags('Project')
 @ApiBearerAuth()

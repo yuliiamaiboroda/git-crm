@@ -1,7 +1,4 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
-import { AuthResponse } from './responses';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -10,9 +7,16 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
 import { AuthGuard } from 'src/guards/auth.guard';
-import { User } from 'src/entities/postgres/user.entity';
 import { CurrentUser } from 'src/decorators/user.decorator';
+
+import { AuthService } from './auth.service';
+
+import { AuthDto } from './dto';
+import { AuthResponse } from './responses';
+
+import { User } from 'src/entities/postgres/user.entity';
 
 @ApiTags('auth')
 @Controller('')
