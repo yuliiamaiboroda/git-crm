@@ -1,6 +1,3 @@
-# Link to the task:
-
-https://github.com/ivz-dev/FullStack-Test-Task
 
 ## Prerequisites
 
